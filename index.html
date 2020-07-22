@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Bank</title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login">
+        <h1 class="text-center">Welcome to Custom Bank</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input class="form-control" type="text" placeholder="Email"><br>
+            <input class="form-control" type="password" placeholder="Password"><br>
+            <button id="btn" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+    <div id="transaction-area">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="status deposit">
+                    <h5>Deposit</h5>
+                    <h2>$<span id="prev-dep-amount">00</span></h2>
+                 </div> 
+            </div>
+            <div class="col-md-4">
+                <div class="status withdraw">
+                    <h5>Withdraw</h5>
+                    <h2>$<span id="prev-with-amount">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+               <div class="status balance">
+                    <h5>Balance</h5>
+                    <h2>$<span id="current-balance">1240</span></h2>
+               </div>
+            </div>
+        </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Deposit</h4>
+                <input id="deposit-amount" class="form-control" type="text" placeholder="$ amount you want to deposit"><br>
+                <button id="deposit-btn" class="btn btn-success">Deposit</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Withdraw</h4>
+                <input id="withdraw-amount" class="form-control" type="text" placeholder="$ amount you want to withdraw"><br>
+                <button id="withdraw-btn" class="btn btn-success">Withdraw</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        // login area disable
+        document.getElementById('btn').addEventListener('click', function(){
+            const loginArea = document.getElementById('login');
+            loginArea.style.display = 'none';
+            const transactionArea = document.getElementById('transaction-area');
+            transactionArea.style.display = 'block';
+        })
+       
+        function changeAmount(id,amount){
+            const current = document.getElementById(id).innerHTML;
+            const totalAmount = parseFloat(amount) + parseFloat(current);
+            document.getElementById(id).innerHTML = totalAmount;
+        }
+        document.getElementById('deposit-btn').addEventListener('click', function(){
+            const depositAmount = document.getElementById('deposit-amount').value;
+            changeAmount('prev-dep-amount',depositAmount);
+            changeAmount('current-balance',depositAmount);
+            document.getElementById('deposit-amount').value = "";
+        })
+        document.getElementById('withdraw-btn').addEventListener('click', function(){
+            const withdrawAmount = document.getElementById('withdraw-amount').value;
+            changeAmount('prev-with-amount',withdrawAmount);
+            changeAmount('current-balance',-1 * withdrawAmount);
+            document.getElementById('withdraw-amount').value = "";
+        })
+
+    </script>
+
+    
+</body>
+</html>
